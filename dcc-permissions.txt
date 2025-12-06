@@ -1,0 +1,13 @@
+chmod 644 DEBIAN/control
+chmod 755 DEBIAN/postinst
+chmod 755 usr/bin/debian-control-center
+
+chmod 644 usr/share/icons/hicolor/scalable/apps/debian-control-center.svg
+chmod 644 usr/share/icons/hicolor/64x64/apps/debian-control-center.png
+chmod 644 usr/share/icons/hicolor/64x64/apps/debian-emblem-black.png
+chmod 644 usr/share/applications/debian-control-center.desktop
+
+sudo chmod 755 usr/share/debian-control-center/app.py
+
+-- Constrói o pacote
+dpkg-deb --build --root-owner-group debian-control-center

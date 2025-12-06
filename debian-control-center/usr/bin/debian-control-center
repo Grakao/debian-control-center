@@ -1,0 +1,6 @@
+#!/bin/bash
+# /usr/bin/debian-control-center - launcher que define o nome do processo
+APPDIR="/usr/share/debian-control-center"
+
+# Usa exec -a para apresentar o nome "debian-control-center" ao kernel/compositor
+exec -a debian-control-center /usr/bin/python3 "$APPDIR/app.py" "$@"

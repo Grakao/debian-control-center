@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Debian Control Center
+Comment=Administração do Debian — serviços, kernels, drivers e manutenção
+Exec=/usr/bin/debian-control-center
+Icon=debian-control-center
+Terminal=false
+Type=Application
+Categories=System;Settings;
