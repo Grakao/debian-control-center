@@ -236,25 +236,25 @@ class MainWindow(QMainWindow):
         group_security = QGroupBox("Administração da Segurança")
         grid = QGridLayout()
 
-        btn_gufw = QPushButton("Ativador do Firewall")
+        btn_gufw = QPushButton("Configurações do Firewall")
         btn_gufw.setIcon(QIcon.fromTheme("gufw"))
         btn_gufw.clicked.connect(lambda: run_polkit_command("gufw"))
-
-        btn_firewall_config = QPushButton("Configurações do Firewall")
-        btn_firewall_config.setIcon(QIcon.fromTheme("firewall-config"))
-        btn_firewall_config.clicked.connect(lambda: run_polkit_command("firewall-config"))
 
         btn_firetools = QPushButton("Configurações do Firejail")
         btn_firetools.setIcon(QIcon.fromTheme("firetools"))
         btn_firetools.clicked.connect(lambda: subprocess.Popen(["firetools"]))
+
+        btn_users = QPushButton("Contas de Usuários e Grupos")
+        btn_users.setIcon(QIcon.fromTheme("debian-security"))
+        btn_users.clicked.connect(lambda: subprocess.Popen(["lxqt-admin-user"]))
 
         btn_linux_assistant = QPushButton("Assistente Linux")
         btn_linux_assistant.setIcon(QIcon.fromTheme("io.github.jean28518.Linux-Assistant"))
         btn_linux_assistant.clicked.connect(self.open_linux_assistant)
 
         grid.addWidget(btn_gufw, 0, 0)
-        grid.addWidget(btn_firewall_config, 0, 1)
-        grid.addWidget(btn_firetools, 1, 0)
+        grid.addWidget(btn_firetools, 0, 1)
+        grid.addWidget(btn_users, 1, 0)
         grid.addWidget(btn_linux_assistant, 1, 1)
 
         group_security.setLayout(grid)
