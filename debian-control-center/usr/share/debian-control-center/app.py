@@ -208,7 +208,7 @@ class MainWindow(QMainWindow):
 
         btn_open_printer = QPushButton("Gerenciador de Impressoras")
         btn_open_printer.setIcon(QIcon.fromTheme("preferences-devices-printer"))
-        btn_open_printer.clicked.connect(lambda: run_polkit_command("system-config-printer"))
+        btn_open_printer.clicked.connect(lambda: subprocess.Popen(["system-config-printer"]))
 
         btn_timeshift = QPushButton("Restauração e Backup (timeshift)")
         btn_timeshift.setIcon(QIcon.fromTheme("timeshift"))
