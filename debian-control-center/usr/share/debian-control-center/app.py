@@ -134,13 +134,21 @@ class MainWindow(QMainWindow):
         btn_gkdebconf.setIcon(QIcon.fromTheme("gkdebconf-icon"))
         btn_gkdebconf.clicked.connect(lambda: run_polkit_command("gkdebconf"))
 
+        btn_gdebi = QPushButton("Instalador de Pacotes .deb")
+        btn_gdebi.setIcon(QIcon.fromTheme("box_debian_disc"))
+        btn_gdebi.clicked.connect(lambda: subprocess.Popen(["gdebi-gtk"]))
+
+        btn_open_deb = QPushButton("Visualizador de Pacotes .deb")
+        btn_open_deb.setIcon(QIcon.fromTheme("deb-gview"))
+        btn_open_deb.clicked.connect(self.open_deb_dialog)
+
         btn_editorconf = QPushButton("Editor de Configurações Dconf")
         btn_editorconf.setIcon(QIcon.fromTheme("folder-deb"))
         btn_editorconf.clicked.connect(lambda: subprocess.Popen(["dconf-editor"]))
 
-        btn_galternatives = QPushButton("Configurações de Apps Alternativos")
-        btn_galternatives.setIcon(QIcon.fromTheme("galternatives"))
-        btn_galternatives.clicked.connect(lambda: subprocess.Popen(["galternatives"]))
+        btn_users = QPushButton("Contas de Usuários e Grupos")
+        btn_users.setIcon(QIcon.fromTheme("debian-security"))
+        btn_users.clicked.connect(lambda: subprocess.Popen(["lxqt-admin-user"]))
 
         btn_aptclean = QPushButton("APT - Limpar o Cache de Pacotes")
         btn_aptclean.setIcon(QIcon.fromTheme("debian-emblem-black"))
@@ -158,24 +166,16 @@ class MainWindow(QMainWindow):
         btn_aptupgrade.setIcon(QIcon.fromTheme("debian-emblem-black"))
         btn_aptupgrade.clicked.connect(self.confirm_upgrade)
 
-        btn_open_deb = QPushButton("Visualizador de Pacotes .deb")
-        btn_open_deb.setIcon(QIcon.fromTheme("deb-gview"))
-        btn_open_deb.clicked.connect(self.open_deb_dialog)
-
-        btn_calamares = QPushButton("Instalador Debian Live Calamares")
-        btn_calamares.setIcon(QIcon.fromTheme("calamares"))
-        btn_calamares.clicked.connect(lambda: run_polkit_command("calamares"))
-
         grid.addWidget(btn_synaptic, 0, 0)
         grid.addWidget(btn_gkdebconf, 0, 1)
-        grid.addWidget(btn_editorconf, 1, 0)
-        grid.addWidget(btn_galternatives, 1, 1)
-        grid.addWidget(btn_aptclean, 2, 0)
-        grid.addWidget(btn_aptautoremove, 2, 1)
-        grid.addWidget(btn_aptfixbroken, 3, 0)
-        grid.addWidget(btn_aptupgrade, 3, 1)
-        grid.addWidget(btn_open_deb, 4, 0)
-        grid.addWidget(btn_calamares, 4, 1)
+        grid.addWidget(btn_gdebi, 1, 0)
+        grid.addWidget(btn_open_deb, 1, 1)
+        grid.addWidget(btn_editorconf, 2, 0)
+        grid.addWidget(btn_users, 2, 1)
+        grid.addWidget(btn_aptclean, 3, 0)
+        grid.addWidget(btn_aptautoremove, 3, 1)
+        grid.addWidget(btn_aptfixbroken, 4, 0)
+        grid.addWidget(btn_aptupgrade, 4, 1)
 
         group_deb_admin.setLayout(grid)
         main.addWidget(group_deb_admin)
@@ -244,18 +244,13 @@ class MainWindow(QMainWindow):
         btn_firetools.setIcon(QIcon.fromTheme("firetools"))
         btn_firetools.clicked.connect(lambda: subprocess.Popen(["firetools"]))
 
-        btn_users = QPushButton("Contas de Usuários e Grupos")
-        btn_users.setIcon(QIcon.fromTheme("debian-security"))
-        btn_users.clicked.connect(lambda: subprocess.Popen(["lxqt-admin-user"]))
-
         btn_linux_assistant = QPushButton("Assistente Linux")
         btn_linux_assistant.setIcon(QIcon.fromTheme("io.github.jean28518.Linux-Assistant"))
         btn_linux_assistant.clicked.connect(self.open_linux_assistant)
 
         grid.addWidget(btn_gufw, 0, 0)
         grid.addWidget(btn_firetools, 0, 1)
-        grid.addWidget(btn_users, 1, 0)
-        grid.addWidget(btn_linux_assistant, 1, 1)
+        grid.addWidget(btn_linux_assistant, 1, 0)
 
         group_security.setLayout(grid)
         main.addWidget(group_security)
