@@ -258,14 +258,19 @@ class MainWindow(QMainWindow):
         # -------------------------------------------------
         # EDITOR
         # -------------------------------------------------
-        group_edit = QGroupBox("Edição de Arquivos")
+        group_edit = QGroupBox("Configurações de Inicialização")
         grid = QGridLayout()
 
         btn_kate = QPushButton("Editar /etc/default/grub")
         btn_kate.setIcon(QIcon.fromTheme("kate"))
         btn_kate.clicked.connect(lambda: run_polkit_command("kate /etc/default/grub"))
 
+        btn_grub_customizer = QPushButton("Personalização do GRUB")
+        btn_grub_customizer.setIcon(QIcon.fromTheme("grub-customizer"))
+        btn_grub_customizer.clicked.connect(lambda: subprocess.Popen(["grub-customizer"]))
+
         grid.addWidget(btn_kate, 0, 0)
+        grid.addWidget(btn_grub_customizer, 0, 1)
         group_edit.setLayout(grid)
         main.addWidget(group_edit)
 
