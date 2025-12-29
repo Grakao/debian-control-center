@@ -214,9 +214,9 @@ class MainWindow(QMainWindow):
         btn_timeshift.setIcon(QIcon.fromTheme("timeshift"))
         btn_timeshift.clicked.connect(lambda: run_polkit_command("timeshift-launcher"))
 
-        btn_warehouse = QPushButton("Administrar Flatpaks (Warehouse)")
-        btn_warehouse.setIcon(QIcon.fromTheme("io.github.flattool.Warehouse"))
-        btn_warehouse.clicked.connect(self.open_warehouse)
+        btn_linux_assistant = QPushButton("Assistente Linux")
+        btn_linux_assistant.setIcon(QIcon.fromTheme("io.github.jean28518.Linux-Assistant"))
+        btn_linux_assistant.clicked.connect(self.open_linux_assistant)
 
         grid.addWidget(btn_hardinfo, 1, 0)
         grid.addWidget(btn_gparted, 1, 1)
@@ -225,7 +225,8 @@ class MainWindow(QMainWindow):
         grid.addWidget(btn_network, 3, 0)
         grid.addWidget(btn_open_printer, 3, 1)
         grid.addWidget(btn_timeshift, 4, 0)
-        grid.addWidget(btn_warehouse, 4, 1)
+        grid.addWidget(btn_linux_assistant, 4, 1)
+
 
         group_admin.setLayout(grid)
         main.addWidget(group_admin)
@@ -233,7 +234,7 @@ class MainWindow(QMainWindow):
         # -------------------------------------------------
         # SEGURANCA
         # -------------------------------------------------
-        group_security = QGroupBox("Administração da Segurança")
+        group_security = QGroupBox("Administração da Segurança e Inicialização")
         grid = QGridLayout()
 
         btn_gufw = QPushButton("Configurações do Firewall")
@@ -244,23 +245,6 @@ class MainWindow(QMainWindow):
         btn_firetools.setIcon(QIcon.fromTheme("firetools"))
         btn_firetools.clicked.connect(lambda: subprocess.Popen(["firetools"]))
 
-        btn_linux_assistant = QPushButton("Assistente Linux")
-        btn_linux_assistant.setIcon(QIcon.fromTheme("io.github.jean28518.Linux-Assistant"))
-        btn_linux_assistant.clicked.connect(self.open_linux_assistant)
-
-        grid.addWidget(btn_gufw, 0, 0)
-        grid.addWidget(btn_firetools, 0, 1)
-        grid.addWidget(btn_linux_assistant, 1, 0)
-
-        group_security.setLayout(grid)
-        main.addWidget(group_security)
-
-        # -------------------------------------------------
-        # EDITOR
-        # -------------------------------------------------
-        group_edit = QGroupBox("Configurações de Inicialização")
-        grid = QGridLayout()
-
         btn_kate = QPushButton("Editar /etc/default/grub")
         btn_kate.setIcon(QIcon.fromTheme("kate"))
         btn_kate.clicked.connect(lambda: run_polkit_command("kate /etc/default/grub"))
@@ -269,10 +253,38 @@ class MainWindow(QMainWindow):
         btn_grub_customizer.setIcon(QIcon.fromTheme("grub-customizer"))
         btn_grub_customizer.clicked.connect(lambda: subprocess.Popen(["grub-customizer"]))
 
-        grid.addWidget(btn_kate, 0, 0)
-        grid.addWidget(btn_grub_customizer, 0, 1)
-        group_edit.setLayout(grid)
-        main.addWidget(group_edit)
+        grid.addWidget(btn_gufw, 0, 0)
+        grid.addWidget(btn_firetools, 0, 1)
+        grid.addWidget(btn_kate, 1, 0)
+        grid.addWidget(btn_grub_customizer, 1, 1)
+
+        group_security.setLayout(grid)
+        main.addWidget(group_security)
+
+        # -------------------------------------------------
+        # FLATPAKS
+        # -------------------------------------------------
+        flatpak_admin = QGroupBox("Administração de Flatpaks")
+        grid = QGridLayout()
+
+        btn_warehouse = QPushButton("Gerenciador de Pacotes (Warehouse)")
+        btn_warehouse.setIcon(QIcon.fromTheme("io.github.flattool.Warehouse"))
+        btn_warehouse.clicked.connect(self.open_warehouse)
+
+        btn_flatseal = QPushButton("Gerenciador de Permissões (Flatseal)")
+        btn_flatseal.setIcon(QIcon.fromTheme("com.github.tchx84.Flatseal"))
+        btn_flatseal.clicked.connect(lambda: subprocess.Popen(["com.github.tchx84.Flatseal"]))
+
+        btn_flatsweep = QPushButton("Limpeza de Pacotes Residuais (Flatsweep)")
+        btn_flatsweep.setIcon(QIcon.fromTheme("io.github.giantpinkrobots.flatsweep"))
+        btn_flatsweep.clicked.connect(self.open_flatsweep)
+
+        grid.addWidget(btn_warehouse, 0, 0)
+        grid.addWidget(btn_flatseal, 0, 1)
+        grid.addWidget(btn_flatsweep, 1, 0)
+
+        flatpak_admin.setLayout(grid)
+        main.addWidget(flatpak_admin)
 
     # -----------------------------------------------------
     # FUNCTIONS
@@ -420,6 +432,30 @@ class MainWindow(QMainWindow):
                 self,
                 "Erro",
                 f"Não foi possível executar o Warehouse:\n{e}"
+            )
+
+    # ---- flatsweep ----
+    def open_flatsweep(self):
+        if not shutil.which("flatpak"):
+            QMessageBox.warning(self, "Erro", "Flatpak não instalado.")
+            return
+
+        cmd = [
+            "flatpak",
+            "run",
+            "--branch=stable",
+            "--arch=x86_64",
+            "--command=flatsweep",
+            "io.github.giantpinkrobots.flatsweep"
+        ]
+
+        try:
+            subprocess.Popen(cmd)
+        except Exception as e:
+            QMessageBox.warning(
+                self,
+                "Erro",
+                f"Não foi possível executar o Flatsweep:\n{e}"
             )
 
 # ----------------------------
