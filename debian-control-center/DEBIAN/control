@@ -1,5 +1,5 @@
 Package: debian-control-center
-Version: 2.4
+Version: 2.5
 Section: admin
 Architecture: all
 Installed-Size: 35
