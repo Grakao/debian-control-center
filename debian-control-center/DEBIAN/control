@@ -1,11 +1,12 @@
 Package: debian-control-center
-Version: 2.3
+Version: 2.4
 Section: admin
 Architecture: all
+Installed-Size: 35
 Maintainer: Gabriel Elias <gabriel.aquino86@gmail.com>
 Depends: python3, python3-pyqt6 | python3-pyqt5, polkitd, pkexec, x-terminal-emulator,
- synaptic, gparted, hardinfo | hardinfo2, calamares, deb-gview, gkdebconf,
- dconf-editor, galternatives, nm-connection-editor, system-config-printer,
+ synaptic, gparted, hardinfo | hardinfo2, calamares, deb-gview, gkdebconf, cdebconf-gtk,
+ dconf-editor, nm-connection-editor, system-config-printer,
  ufw, gufw, firetools, timeshift, kate, lxqt-admin, lxqt-admin-l10n, gdebi
 Description: Debian Control Center
  A Qt-based control center for Debian. Provides access to system

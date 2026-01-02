@@ -130,7 +130,7 @@ class MainWindow(QMainWindow):
         btn_synaptic.setIcon(QIcon.fromTheme("box_debian_disc"))
         btn_synaptic.clicked.connect(lambda: run_polkit_command("synaptic"))
 
-        btn_gkdebconf = QPushButton("Gerenciador de Configurações Debconf")
+        btn_gkdebconf = QPushButton("Configurador DPKG / Debconf")
         btn_gkdebconf.setIcon(QIcon.fromTheme("gkdebconf-icon"))
         btn_gkdebconf.clicked.connect(lambda: run_polkit_command("gkdebconf"))
 
@@ -194,7 +194,7 @@ class MainWindow(QMainWindow):
         btn_gparted.setIcon(QIcon.fromTheme("gparted"))
         btn_gparted.clicked.connect(lambda: run_polkit_command("gparted"))
 
-        btn_sysd = QPushButton("Gerenciador de Serviços (systemd)")
+        btn_sysd = QPushButton("Gerenciador de Serviços (sysd)")
         btn_sysd.setIcon(QIcon.fromTheme("io.github.plrigaux.sysd-manager"))
         btn_sysd.clicked.connect(self.open_sysd_manager)
 
@@ -214,9 +214,9 @@ class MainWindow(QMainWindow):
         btn_timeshift.setIcon(QIcon.fromTheme("timeshift"))
         btn_timeshift.clicked.connect(lambda: run_polkit_command("timeshift-launcher"))
 
-        btn_linux_assistant = QPushButton("Assistente Linux")
-        btn_linux_assistant.setIcon(QIcon.fromTheme("io.github.jean28518.Linux-Assistant"))
-        btn_linux_assistant.clicked.connect(self.open_linux_assistant)
+        btn_tuned_gtk = QPushButton("Gerenciamento de Energia (tuned)")
+        btn_tuned_gtk.setIcon(QIcon.fromTheme("tuned"))
+        btn_tuned_gtk.clicked.connect(lambda: run_polkit_command("/usr/sbin/tuned-gui"))
 
         grid.addWidget(btn_hardinfo, 1, 0)
         grid.addWidget(btn_gparted, 1, 1)
@@ -225,8 +225,7 @@ class MainWindow(QMainWindow):
         grid.addWidget(btn_network, 3, 0)
         grid.addWidget(btn_open_printer, 3, 1)
         grid.addWidget(btn_timeshift, 4, 0)
-        grid.addWidget(btn_linux_assistant, 4, 1)
-
+        grid.addWidget(btn_tuned_gtk, 4, 1)
 
         group_admin.setLayout(grid)
         main.addWidget(group_admin)
