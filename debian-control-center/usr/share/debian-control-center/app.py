@@ -13,11 +13,13 @@ from pathlib import Path
 # ----------------------------
 try:
     from PyQt6.QtWidgets import (
-        QApplication, QMainWindow, QPushButton, QWidget, QVBoxLayout,
+        QApplication, QMainWindow, QPushButton, QWidget, QVBoxLayout, QSplashScreen,
         QGroupBox, QGridLayout, QFileDialog, QMessageBox, QLabel
     )
-    from PyQt6.QtGui import (QIcon, QGuiApplication)
-    from PyQt6.QtCore import Qt
+    from PyQt6.QtGui import (QIcon, QGuiApplication, QPixmap)
+    from PyQt6.QtCore import (Qt, QTimer)
+    from PyQt6.QtNetwork import QLocalServer, QLocalSocket
+
     PYQT_VERSION = 6
 except Exception:
     from PyQt5.QtWidgets import (
@@ -30,7 +32,6 @@ except Exception:
 
 
 APP_DIR = Path(__file__).resolve().parent
-
 
 # ----------------------------
 # Helpers
@@ -463,11 +464,38 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
+    SERVER_NAME = "debian-control-center-single-instance"
+
+    server = QLocalServer()
+
+    if not server.listen(SERVER_NAME):
+        # Já existe uma instância rodando
+        socket = QLocalSocket()
+        socket.connectToServer(SERVER_NAME)
+        socket.waitForConnected(500)
+
+        # pede para trazer a janela para frente
+        socket.write(b"raise")
+        socket.flush()
+
+        sys.exit(0)
+
     app_icon = QIcon("/usr/share/icons/hicolor/scalable/apps/debian-control-center.svg")
     app.setWindowIcon(app_icon)
 
+     # ---- Splash Screen ----
+    splash_pix = QPixmap("/usr/share/debian-control-center/splash.png")
+    splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
+    splash.show()
+    app.processEvents()  # garante exibição imediata
+
     window = MainWindow()
     window.setWindowIcon(app_icon)    # NECESSÁRIO NO WAYLAND
-    window.show()
+
+    # Exibe a janela após 3 segundos
+    QTimer.singleShot(1500, lambda: (
+        splash.finish(window),
+        window.show()
+    ))
 
     sys.exit(app.exec())
