@@ -483,7 +483,7 @@ if __name__ == "__main__":
     app_icon = QIcon("/usr/share/icons/hicolor/scalable/apps/debian-control-center.svg")
     app.setWindowIcon(app_icon)
 
-     # ---- Splash Screen ----
+    # ---- Splash Screen ----
     splash_pix = QPixmap("/usr/share/debian-control-center/splash.png")
     splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
     splash.show()
@@ -492,8 +492,8 @@ if __name__ == "__main__":
     window = MainWindow()
     window.setWindowIcon(app_icon)    # NECESSÁRIO NO WAYLAND
 
-    # Exibe a janela após 3 segundos
-    QTimer.singleShot(1500, lambda: (
+    # Exibe a janela após x segundos
+    QTimer.singleShot(1000, lambda: (
         splash.finish(window),
         window.show()
     ))
