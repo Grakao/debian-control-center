@@ -151,6 +151,10 @@ class MainWindow(QMainWindow):
         btn_users.setIcon(QIcon.fromTheme("debian-security"))
         btn_users.clicked.connect(lambda: subprocess.Popen(["lxqt-admin-user"]))
 
+        btn_aptupgrade = QPushButton("Atualizar Softwares e Drivers")
+        btn_aptupgrade.setIcon(QIcon.fromTheme("simple-apt-update"))
+        btn_aptupgrade.clicked.connect(lambda: subprocess.Popen(["simple-apt-update"]))
+
         btn_aptclean = QPushButton("APT - Limpar o Cache de Pacotes")
         btn_aptclean.setIcon(QIcon.fromTheme("debian-emblem-black"))
         btn_aptclean.clicked.connect(self.confirm_autoclean)
@@ -159,13 +163,10 @@ class MainWindow(QMainWindow):
         btn_aptautoremove.setIcon(QIcon.fromTheme("debian-emblem-black"))
         btn_aptautoremove.clicked.connect(self.confirm_autoremove)
 
-        btn_aptfixbroken = QPushButton("APT - Corrigir Dependências Quebradas")
+        btn_aptfixbroken = QPushButton("APT - Corrigir Pacotes Quebrados")
         btn_aptfixbroken.setIcon(QIcon.fromTheme("debian-emblem-black"))
         btn_aptfixbroken.clicked.connect(self.confirm_fixbroken)
 
-        btn_aptupgrade = QPushButton("APT - Atualizar Pacotes")
-        btn_aptupgrade.setIcon(QIcon.fromTheme("debian-emblem-black"))
-        btn_aptupgrade.clicked.connect(self.confirm_upgrade)
 
         grid.addWidget(btn_synaptic, 0, 0)
         grid.addWidget(btn_gkdebconf, 0, 1)
@@ -173,10 +174,10 @@ class MainWindow(QMainWindow):
         grid.addWidget(btn_open_deb, 1, 1)
         grid.addWidget(btn_editorconf, 2, 0)
         grid.addWidget(btn_users, 2, 1)
-        grid.addWidget(btn_aptclean, 3, 0)
-        grid.addWidget(btn_aptautoremove, 3, 1)
-        grid.addWidget(btn_aptfixbroken, 4, 0)
-        grid.addWidget(btn_aptupgrade, 4, 1)
+        grid.addWidget(btn_aptupgrade, 3, 0)
+        grid.addWidget(btn_aptclean, 3, 1)
+        grid.addWidget(btn_aptautoremove, 4, 0)
+        grid.addWidget(btn_aptfixbroken, 4, 1)
 
         group_deb_admin.setLayout(grid)
         main.addWidget(group_deb_admin)
