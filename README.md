@@ -1,2 +1,2 @@
 # debian-control-center
-Um centro de controle baseado em Qt para Debian no estilo YaST. Fornece acesso a ferramentas de administração do sistema, como Synaptic, GParted, Hardinfo, Calamares,  GKDebconf, comandos de manutenção do APT, utilitários de inspeção de .deb,  gerenciamento de serviços, edição de arquivos de configuração e muito mais. 
+A Qt-based control center for Debian in the style of YaST. It provides access to system administration tools such as Synaptic, GParted, Hardinfo, Calamares, GKDebconf, APT maintenance commands, .deb inspection utilities, service management, configuration file editing, and much more.
