@@ -188,15 +188,15 @@ class MainWindow(QMainWindow):
         group_admin = QGroupBox("Administração do Sistema")
         grid = QGridLayout()
 
-        btn_hardinfo = QPushButton("Gerenciador de Dispositivos (hardinfo)")
+        btn_hardinfo = QPushButton("Gerenciador de Dispositivos")
         btn_hardinfo.setIcon(QIcon.fromTheme("hardinfo2"))
         btn_hardinfo.clicked.connect(self.open_hardinfo)
 
-        btn_gparted = QPushButton("Gerenciamento de Disco (gparted)")
+        btn_gparted = QPushButton("Gerenciamento de Disco")
         btn_gparted.setIcon(QIcon.fromTheme("gparted"))
         btn_gparted.clicked.connect(lambda: run_polkit_command("gparted"))
 
-        btn_sysd = QPushButton("Gerenciador de Serviços (sysd)")
+        btn_sysd = QPushButton("Gerenciador de Serviços")
         btn_sysd.setIcon(QIcon.fromTheme("io.github.plrigaux.sysd-manager"))
         btn_sysd.clicked.connect(self.open_sysd_manager)
 
@@ -204,7 +204,7 @@ class MainWindow(QMainWindow):
         btn_resources.setIcon(QIcon.fromTheme("net.nokyan.Resources"))
         btn_resources.clicked.connect(self.open_resources)
 
-        btn_network = QPushButton("Configurações de Rede")
+        btn_network = QPushButton("Configurações Avançadas de Rede")
         btn_network.setIcon(QIcon.fromTheme("preferences-system-network"))
         btn_network.clicked.connect(lambda: subprocess.Popen(["nm-connection-editor"]))
 
@@ -212,18 +212,18 @@ class MainWindow(QMainWindow):
         btn_open_printer.setIcon(QIcon.fromTheme("preferences-devices-printer"))
         btn_open_printer.clicked.connect(lambda: subprocess.Popen(["system-config-printer"]))
 
-        btn_timeshift = QPushButton("Restauração e Backup (timeshift)")
+        btn_timeshift = QPushButton("Restauração, Snapshots e Backup")
         btn_timeshift.setIcon(QIcon.fromTheme("timeshift"))
         btn_timeshift.clicked.connect(lambda: run_polkit_command("timeshift-launcher"))
 
-        btn_tuned_gtk = QPushButton("Gerenciamento de Energia (tuned)")
+        btn_tuned_gtk = QPushButton("Gerenciamento de Energia")
         btn_tuned_gtk.setIcon(QIcon.fromTheme("tuned"))
         btn_tuned_gtk.clicked.connect(lambda: run_polkit_command("/usr/sbin/tuned-gui"))
 
         grid.addWidget(btn_hardinfo, 1, 0)
-        grid.addWidget(btn_gparted, 1, 1)
+        grid.addWidget(btn_resources, 1, 1)
         grid.addWidget(btn_sysd, 2, 0)
-        grid.addWidget(btn_resources, 2, 1)
+        grid.addWidget(btn_gparted, 2, 1)
         grid.addWidget(btn_network, 3, 0)
         grid.addWidget(btn_open_printer, 3, 1)
         grid.addWidget(btn_timeshift, 4, 0)
@@ -246,18 +246,18 @@ class MainWindow(QMainWindow):
         btn_firetools.setIcon(QIcon.fromTheme("firetools"))
         btn_firetools.clicked.connect(lambda: subprocess.Popen(["firetools"]))
 
-        btn_kate = QPushButton("Editar /etc/default/grub")
-        btn_kate.setIcon(QIcon.fromTheme("kate"))
-        btn_kate.clicked.connect(lambda: run_polkit_command("kate /etc/default/grub"))
-
         btn_grub_customizer = QPushButton("Personalização do GRUB")
         btn_grub_customizer.setIcon(QIcon.fromTheme("grub-customizer"))
         btn_grub_customizer.clicked.connect(lambda: subprocess.Popen(["grub-customizer"]))
 
+        btn_galternatives = QPushButton("Configurador de Alternativas")
+        btn_galternatives.setIcon(QIcon.fromTheme("galternatives"))
+        btn_galternatives.clicked.connect(lambda: subprocess.Popen(["galternatives"]))
+
         grid.addWidget(btn_gufw, 0, 0)
         grid.addWidget(btn_firetools, 0, 1)
-        grid.addWidget(btn_kate, 1, 0)
-        grid.addWidget(btn_grub_customizer, 1, 1)
+        grid.addWidget(btn_grub_customizer, 1, 0)
+        grid.addWidget(btn_galternatives, 1, 1)
 
         group_security.setLayout(grid)
         main.addWidget(group_security)
